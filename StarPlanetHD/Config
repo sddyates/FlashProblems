@@ -1,0 +1,34 @@
+REQUIRES Driver
+REQUIRES physics/Eos/EosMain/Gamma
+REQUIRES physics/Hydro
+REQUIRES physics/Gravity/GravityMain/UserDefined
+
+PARAMETER useGravity    BOOLEAN  TRUE
+PARAMETER tiny          REAL     1.e-16
+PARAMETER xCtr	        REAL     0.0
+PARAMETER yCtr	        REAL     0.0
+PARAMETER zCtr	        REAL     0.0
+PARAMETER xMin          REAL     -16.0
+PARAMETER xMax          REAL     16.0
+PARAMETER yMin          REAL     -16.0
+PARAMETER yMax          REAL     16.0
+PARAMETER zMin          REAL     -16.0
+PARAMETER zMax          REAL     16.0
+PARAMETER gamma         REAL     1.05
+PARAMETER seperation    REAL     4.7
+PARAMETER star_temp     REAL     2.0e+6
+PARAMETER star_mass     REAL     1.0
+PARAMETER star_radius   REAL     1.0
+PARAMETER star_mag      REAL     2.0
+PARAMETER star_rho      REAL     5.0e-15
+PARAMETER planet_temp   REAL     6.0e+3
+PARAMETER planet_mass   REAL     0.5
+PARAMETER planet_radius REAL     1.5
+PARAMETER planet_mag    REAL     0.1
+PARAMETER planet_rho    REAL     7.0e-17
+PARAMETER ptmass        REAL     1.0
+PARAMETER ptxpos        REAL     0.0
+PARAMETER ptypos        REAL     0.0
+PARAMETER ptzpos        REAL     0.0
+PARAMETER gravsoft      REAL     0.0
+

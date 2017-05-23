@@ -1,0 +1,148 @@
+
+#	Specific heats ratio
+gamma           = 1.05
+
+#       Grid dimensionality and geometry
+geometry       = "cartesian"
+
+#       Size of computational volume
+xmin            = -16.0
+xmax            =  16.0
+ymin            = -16.0
+ymax            =  16.0
+zmin            = -16.0
+zmax            =  16.0
+
+xCtr		= 0.0
+yCtr		= 0.0
+zCtr		= 0.0
+
+smallp          = 1.0e-5
+smallX          = ?
+
+# Star parameters
+seperation      = 4.7
+star_temp       = 1.0e+6
+star_mass       = 1.0
+star_radius     = 1.0
+star_mag        = 2.0
+star_rho        = 5.0e-15
+
+# Gravity
+useGravity      = .true.
+ptmass          = 5.91212190126866e+15
+ptxpos          = 0.0
+ptypos          = 0.0
+ptzpos          = 0.0
+gravsoft        = 0.0
+
+#       Boundary conditions (code -22 is periodic)
+xl_boundary_type = "outflow"
+xr_boundary_type = "outflow"
+yl_boundary_type = "outflow"
+yr_boundary_type = "outflow"
+zl_boundary_type = "outflow"
+zr_boundary_type = "outflow"
+
+
+#       Simulation (grid, time, I/O) parameters
+run_comment     = "Parker Wind"
+log_file        = "PW_hyd.log"
+basenm          = "PW_hyd_"
+restart         = .false.
+nend            = 1000000
+tmax            = 1.84632
+cfl             = 0.8
+plot_var_1	= "dens"
+plot_var_2	= "divb"
+plot_var_3	= "velx"
+plot_var_4	= "vely"
+plot_var_4	= "velz"
+plot_var_3	= "magx"
+plot_var_4	= "magy"
+plot_var_4	= "magz"
+lot_var_5	= "pres"
+
+convertToConsvdInMeshInterp = .true.
+checkpointFileIntervalTime = 9.2316e-3
+plotFileIntervalTime = 9.2316e-3
+#checkpointFileIntervalStep = 5
+
+
+# MHD 
+#UnitSystem      = cgs
+killdivb        = .true.
+flux_correct    = .true.
+E_modification  = .true.
+E_upwind        = .false.
+energyFix       = .true.
+facevar2ndOrder = .true.
+ForceHydroLimit = .false.
+prolMethod      = "INJECTION_PROL"
+
+
+#	AMR Refinement parameters
+nblockx         = 8
+nblocky         = 8
+nblockz		= 8
+
+lrefine_max     = 3
+nrefs		= 2
+refine_var_1    = "dens"
+refine_var_2    = "pres"
+eintSwitch	= 1.e-6
+
+## -------------------------------------------------------------##
+##  SWITCHES SPECIFIC TO THE UNSPLIT STAGGERED MESH MHD SOLVER  ##
+#	I. INTERPOLATION SCHEME:
+order		= 2      # Interpolation order (first/second/third/fifth order))
+slopeLimiter    = "mc"   # Slope limiters (minmod, mc, vanLeer, hybrid, limited)
+LimitedSlopeBeta= 1.     # Slope parameter for the "limited" slope by Toro
+charLimiting	= .true. # Characteristic limiting vs. Primitive limiting
+
+use_avisc	= .false. # use artificial viscosity (originally for PPM)
+cvisc		= 0.1     # coefficient for artificial viscosity
+use_flattening	= .false. # use flattening (dissipative) (originally for PPM)
+use_steepening	= .false. # use contact steepening (originally for PPM)
+use_upwindTVD	= .false. # use upwind biased TVD slope for PPM (need nguard=6)
+
+#	III. RIEMANN SOLVERS:
+RiemannSolver	= "HLLD"       # Roe, HLL, HLLC, HLLD, LLF, Marquina
+entropy         = .false.     # Entropy fix for the Roe solver
+
+#	IV. STRONG SHOCK HANDELING SCHEME:
+shockDetect	= .false.     # Shock Detect for numerical stability
+## -------------------------------------------------------------##
+
+## ---------------------------------------------------------------##
+##  SWITCHES SPECIFIC TO THE SUPER-TIME-STEPPING (STS) ALGORITHM  ##
+##  NOTE: For details on using STS runtime parameters, please     ##
+##        refer to user's guide (Driver chapter).                 ##
+useSTS                  = .false.
+nstepTotalSTS           = 5
+nuSTS                   = 0.2
+## ---------------------------------------------------------------##
+
+
+#These parameters below are only necessary for the Uniform Grid
+#iGridSize = 100   #defined as nxb * iprocs
+#jGridSize = 100
+#kGridSize = 1
+iProcs = 1      #num procs in i direction
+jProcs = 1      #num procs in j direction
+kProcs = 1
+
+
+# When using UG, iProcs, jProcs and kProcs must be specified.
+# These are the processors along each of the dimensions
+# FIXEDBLOCKSIZE mode ::
+#	When using fixed blocksize, iGridSize etc are redundant in
+#	runtime parameters. These quantities are calculated as 
+#	iGridSize = NXB*iprocs
+#	jGridSize = NYB*jprocs
+#	kGridSize = NZB*kprocs
+# NONFIXEDBLOCKSIZE mode ::
+#	iGridSize etc must be specified. They constitute the global
+#	number of grid points in the physical domain without taking 
+#	the guard cell into account. The local blocksize is calculated
+#	as iGridSize/iprocs  etc.
